@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>KaisonDo Flyers</title>
+        </head>
+        <body>
+            <style>
+                body {
+                    margin: 0;
+                    font-family: Arial, sans-serif;
+                    background: #f5f5f5;
+                }
+
+               header {
+                   background: #4285F4;
+                   color: white;
+                   padding: 15px 30px;
+                  font-size: 28px;
+                  font-weight: bold;
+                  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+              }
+
+             #editor-container {
+                display: flex;
+                padding: 20px;
+                gap: 20px;
+             }
+
+    #controls {
+        width: 300px;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #flyer {
+        width: 600px;
+        height: 800px;
+        background: white;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    #flyer h1, #flyer p {
+        cursor: text;
+    }
+
+    .control-section {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin: 8px 0 3px;
+    }
+
+    input[type="text"], input[type="color"], textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #4285F4;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #2b63c9;
+    }
+
+    #uploadedImage {
+        max-width: 100%;
+        display: block;
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+
+<header>KaisonDo Flyers</header>
+
+<div id="editor-container">
+    <div id="controls">
+        <div class="control-section">
+            <label>Title</label>
+            <input type="text" id="titleInput" placeholder="Enter flyer title">
+        </div>
+
+        <div class="control-section">
+            <label>Description Text</label>
+            <textarea id="descInput" rows="5" placeholder="Enter flyer description"></textarea>
+        </div>
+
+        <div class="control-section">
+            <label>Background Color</label>
+            <input type="color" id="bgColorInput" value="Enter Color">
+        </div>
+        <div class="control-section">
+            <label>Upload Image</label>
+            <input type="file" id="imageUploader" accept="image/*">
+        </div>
+
+        <button onclick="updateFlyer()">Update Flyer To Edited Text</button>
+        <button onclick="window.print()">Print Flyer On Paper</button>
+    </div>
+
+    <div id="flyer">
+        <h1 id="flyerTitle">Title Of Your Flyer</h1>
+        <img id="uploadedImage" style="display:none;">
+        <p id="flyerDesc">Your flyer description goes here. Add details, event info, promotions, or anything you like.</p>
+    </div>
+</div>
+
+<script>
+function updateFlyer() {
+    document.getElementById("flyerTitle").innerText =
+        document.getElementById("titleInput").value || "Your Flyer Title";
+
+    document.getElementById("flyerDesc").innerText =
+        document.getElementById("descInput").value ||
+        "Your flyer description goes here.";
+
+    document.getElementById("flyer").style.background =
+        document.getElementById("bgColorInput").value;
+}
+
+document.getElementById("imageUploader").addEventListener("change", function() {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = document.getElementById("uploadedImage");
+        img.src = e.target.result;
+        //I will give you the link to video preview of KaisonDo Flyers.
+        img.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+});
+</script>
+
+</body>
+</html>
